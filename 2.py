@@ -34,9 +34,6 @@ outcome_moves = {'A X': 'Z', # rock, lose: scissors
 def score(moves):
     s = 0
     for m in moves:
-        #print(m)
-        if m == '':
-            continue
         s += move_scores[m[2]]
         s += round_scores[m]
     return s
@@ -44,28 +41,21 @@ def score(moves):
 def score2(outcomes):
     s = 0
     for o in outcomes:
-        if o == '':
-            continue
         move = outcome_moves[o]
         s += move_scores[move]
         s += round_scores[o[0] + ' ' + move]
     return s
 
-# sample
-print(score('''A Y
+
+sample = '''A Y
 B X
-C Z'''.split('\n')))
+C Z'''.split('\n')
 
-# real input
-inp = open("2.txt").read()
-print(score(inp.split('\n')))
+inp = open("2.txt").read().strip().split('\n')
 
-# sample
-print(score2('''A Y
-B X
-C Z'''.split('\n')))
+print(score(sample)) # 15
+print(score(inp)) # 15337
 
-# real input
-inp = open("2.txt").read()
-print(score2(inp.split('\n')))
-
+print(score2(sample)) # 12
+print(score2(inp)) # 11696
+      
