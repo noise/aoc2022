@@ -10,4 +10,4 @@ def elf_cals():
 
 
 cals = elf_cals()
-print(cals[-3:], sum(cals[-3:]))
+print(cals[-1], sum(cals[-3:]))

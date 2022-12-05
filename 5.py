@@ -16,10 +16,8 @@ def parse_inp(inp):
     crates, moves_str = inp.split("\n\n")
 
     # crates
-    crates = crates.split("\n")
-    crates.pop()
-    crates = [re.findall("[\[\ ]([A-Z\ ])[\]\ ]\ ?", c) for c in crates]
-    crates = transpose(crates)
+    crates = crates.split("\n")[:-1]
+    crates = transpose([re.findall("[\[\ ]([A-Z\ ])[\]\ ]\ ?", c) for c in crates])
     # trim the empty tops of stacks
     crates = [[c for c in p if c != " "] for p in crates]
     print(crates)
