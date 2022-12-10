@@ -6,8 +6,7 @@
 
 
 def render(crt):
-    for i in range(0, 240, 40):
-        print("".join(crt[i : i + 40]))
+    print("\n".join(["".join(crt[i : i + 40]) for i in range(0, 240, 40)]))
 
 
 def clock(insts):
