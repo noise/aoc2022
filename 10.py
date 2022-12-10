@@ -10,7 +10,7 @@ def render(crt):
         print("".join(crt[i : i + 40]))
 
 
-def clock2(insts):
+def clock(insts):
     # expand to clock
     ticks = []
     for i in insts:
@@ -26,17 +26,13 @@ def clock2(insts):
         i = ticks[pc]
 
         # draw
-        if pc % 40 in range(x - 1, x + 2):
-            crt[pc] = "#"
-        else:
-            crt[pc] = "."
+        crt[pc] = "#" if pc % 40 in range(x - 1, x + 2) else "."
 
-        # check clock
+        # check clock, signal strengths
         pc += 1
-        if pc in [20, 60, 100, 140, 180, 220]:
-            sums += pc * x
+        sums += pc * x if pc in [20, 60, 100, 140, 180, 220] else 0
 
-        # increment at end of cycle
+        # increment register at end of cycle
         if i.startswith("addx"):
             x += int(i.split(" ")[1])
 
@@ -45,7 +41,7 @@ def clock2(insts):
 
 
 inp = open("10s.txt").read().strip().split("\n")
-print(clock2(inp))  # 13140
+print(clock(inp))  # 13140
 
 inp = open("10.txt").read().strip().split("\n")
-print(clock2(inp))  # 13740, XUPRFECL
+print(clock(inp))  # 13740, XUPRFECL
