@@ -36,17 +36,16 @@ Monkey 3:
 
 class Monkey(object):
     def __init__(self, conf, n):
-        self.parse(conf, n)
+        self._parse(conf, n)
         self.inspected = 0
 
     def __repr__(self):
         return f"""Monkey({self.num}, {self.items}, {self.exp}, {self.mod}, {self.pos_monkey}, {self.neg_monkey}, ninsp: {self.inspected})\n"""
 
-    def parse(self, conf, n):
+    def _parse(self, conf, n):
         conf = conf.split("\n")
         self.num = n
         self.items = [int(i) for i in re.findall("(\d+)", conf[1])]
-        # self.op, self.op_val = re.findall(r'.*([+\-*/])\s(.*)',conf[2])[0]
         self.exp = conf[2].split("=")[1]
         self.mod = int(re.findall("\d+", conf[3])[0])
 
@@ -63,7 +62,8 @@ def parse(inp):
 
 
 def sim(monkeys, rounds, decay=True):
-    # the trick, I clearly missed this day of math class and looked it up
+    # the trick, using modulo arithmetics
+    # I clearly missed this day of math class and looked up this part of the solution
     mods = 1
     for m in monkeys:
         mods *= m.mod
@@ -81,7 +81,7 @@ def sim(monkeys, rounds, decay=True):
                 if decay:
                     worry = worry // 3
 
-                # the trick, but why?
+                # the trick, see above
                 worry = worry % mods
 
                 # throw to other monkey, add to end of items
