@@ -48,7 +48,6 @@ class Monkey(object):
         self.items = [int(i) for i in re.findall("(\d+)", conf[1])]
         self.exp = conf[2].split("=")[1]
         self.mod = int(re.findall("\d+", conf[3])[0])
-
         self.pos_monkey = int(re.findall("\d+", conf[4])[0])
         self.neg_monkey = int(re.findall("\d+", conf[5])[0])
 
