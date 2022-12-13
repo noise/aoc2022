@@ -14,25 +14,25 @@ def check_pktr(le, re):
     print(f"{le} vs {re}")
     if type(le) == int and type(re) == int:
         if le < re:
-            return True
+            return 1
         elif le > re:
-            return False
+            return -1
         else:
-            return None
+            return 0
     elif type(le) == list and type(re) == list:
         for i in range(max(len(le), len(re))):
             if i >= len(re):
                 print("exhausted right")
-                return False
+                return -1
             if i >= len(le):
                 print("exhausted left")
-                return True
+                return 1
             o = check_pktr(le[i], re[i])
-            if o is None:
+            if o == 0:
                 continue
             else:
                 return o
-        return True
+        return 1
     elif type(le) == int:
         return check_pktr([le], re)
     elif type(re) == int:
@@ -42,10 +42,9 @@ def check_pktr(le, re):
 def check_pkts(pkts):
     ord_idxs = []
     for i in range(len(pkts)):
-        # for i in range(2):
         ordered = check_pktr(pkts[i][0], pkts[i][1])
         print(f"{i+1} is ordered? {ordered}")
-        if ordered:
+        if ordered == 1:
             ord_idxs.append(i + 1)
     return sum(ord_idxs)
 
