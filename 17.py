@@ -75,40 +75,39 @@ def sim(moves, nrocks):
     stopped = 0
 
     for m in cycle(moves):
-        # sideways
-        mx = side_coll(space, rn, rx, ry, m == "<")
-        rx += mx
-
+        # move sideways if possible
+        rx += side_coll(space, rn, rx, ry, m == "<")
         draw(space, rn, rx, ry)
 
-        if down_coll(space, rn, rx, ry):
-            # render in rock
-            for j in range(rh[rn]):
-                space[ry + j] |= rocks[rn][j] >> rx
-
-            # find top
-            for j in range(len(space)):
-                if space[j] & 0b011111110:
-                    break
-
-            # are we there yet?
-            stopped += 1
-            if stopped == nrocks:
-                draw(space, rn, rx, ry)
-                return len(space) - 1 - j
-
-            # spawn new rock
-            rn, rx, ry = (rn + 1) % 5, 2, 0
-
-            # grow space
-            if j >= 4 + rh[rn]:  # enough rows already, place lower
-                ry = j - rh[rn] - 3
-            else:
-                for _ in range(rh[rn] + 3 - j):
-                    space.insert(0, 0b100000001)
-
-        else:
+        if not down_coll(space, rn, rx, ry):
+            # move down and move on
             ry += 1
+            continue
+        
+        # render in rock
+        for j in range(rh[rn]):
+            space[ry + j] |= rocks[rn][j] >> rx
+
+        # find top
+        for j in range(len(space)):
+            if space[j] & 0b011111110:
+                break
+
+        # are we there yet?
+        stopped += 1
+        if stopped == nrocks:
+            draw(space, rn, rx, ry)
+            return len(space) - 1 - j
+
+        # spawn new rock
+        rn, rx, ry = (rn + 1) % 5, 2, 0
+
+        # grow space
+        if j >= 4 + rh[rn]:  # enough rows already, place lower
+            ry = j - rh[rn] - 3
+        else:
+            for _ in range(rh[rn] + 3 - j):
+                space.insert(0, 0b100000001)
 
         if RENDER:
             draw(space, rn, rx, ry)
@@ -119,11 +118,15 @@ def sim(moves, nrocks):
 RENDER = False
 
 # Part 1
-simp = list(">>><<><>><<<>><>>><<<>>><<<><<<>><>><<>>")
-print(sim(simp, 2022))  # 3068
+sinp = list(">>><<><>><<<>><>>><<<>>><<<><<<>><>><<>>")
+h = sim(sinp, 2022)
+print("1. sample", h)
+assert(sim(sinp, 2022)) == 3068
 
 inp = open("17.txt").read().strip()
-print(sim(inp, 2022))  # 3055
+h = sim(inp, 2022)
+print("1. real", h)
+assert(sim(inp, 2022)) == 3055
 
 # Part 2 - will need to find where the cycle is...
 # print(sim(simp, 1000000000000)) #
