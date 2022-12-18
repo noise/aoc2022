@@ -63,6 +63,11 @@ def flood(grid, x, y, z):
     return area
 
 
+import fill_voids
+def area(grid):
+    filled = fill_voids.fill(grid)
+    return (faces(filled))
+
 def one(inpl):
     vox = parse(inpl)
     grid = place(vox)
@@ -72,7 +77,8 @@ def one(inpl):
 def two(inpl):
     vox = parse(inpl)
     grid = place(vox)
-    return flood(grid, 40, 40, 40)
+    #return flood(grid, 40, 40, 40)
+    return area(grid)
 
 
 sinp = """2,2,2
@@ -97,8 +103,4 @@ print("1-sample:", one(sinp))  # 64
 print("1-real:", one(inp))  # 4302
 
 print("2-sample:", two(sinp))  # 58
-print("2-real:", two(inp))  # 2492
-
-
-#? 2483 too low, not *2487*, not 2849, not 2851, # not 2853
-
+print("2-real:", two(inp))  # 2492, flood finds 2487(!!?)
