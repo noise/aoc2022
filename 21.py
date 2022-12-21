@@ -23,17 +23,7 @@ def sim(mnums, mops):
     while len(mops) > 0:
         m0, m1, op, m2 = mops.pop(0)
         if m1 in mnums and m2 in mnums:
-            if op == "+":
-                v = mnums[m1] + mnums[m2]
-            elif op == "-":
-                v = mnums[m1] - mnums[m2]
-            elif op == "*":
-                v = mnums[m1] * mnums[m2]
-            elif op == "/":
-                v = mnums[m1] / mnums[m2]
-            else:
-                raise
-            mnums[m0] = v
+            mnums[m0] = eval(f"mnums['{m1}'] {op} mnums['{m2}']")
         else:
             mops.append((m0, m1, op, m2))
     return mnums["root"]
