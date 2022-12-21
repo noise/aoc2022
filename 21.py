@@ -44,12 +44,6 @@ def one(lines):
     return sim(mnums, mops)
 
 
-def two(lines):
-    key = 811589153
-    nums = list(map(lambda x: x * key, parse(lines)))
-    return coords(mix(nums, 10))
-
-
 sinp = """root: pppw + sjmn
 dbpl: 5
 cczh: sllz + lgvd
@@ -70,8 +64,8 @@ hmdt: 32""".split(
 
 inp = open("21.txt").read().strip().split("\n")
 
-print("1-sample:", one(sinp))  #
-print("1-real:", one(inp))  #
+print("1-sample:", one(sinp))  # 152
+print("1-real:", one(inp))  # 49288254556480
 
-# print("2-sample:", two(sinp))  #
+# print("2-sample:", two(sinp))  # 301
 # print("2-real:", two(inp))  #
