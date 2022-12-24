@@ -26,7 +26,6 @@ def parse(inp):
     }
 
 
-moves = cycle([(0, -1), (0, 1), (-1, 0), (1, 0)])
 
 checks = {
     (0, -1): [(-1, -1), (0, -1), (1, -1)],  # N
@@ -51,6 +50,7 @@ def all_empty(elves, e):
 
 
 def sim(elves, rounds, two):
+    moves = cycle([(0, -1), (0, 1), (-1, 0), (1, 0)])
     if two:
         rounds = 10000
     for i in range(rounds):
@@ -120,4 +120,4 @@ print("1-sample:", one(sinp))  # 110
 print("1-real:", one(inp))  # 3800
 
 print("2-sample:", one(sinp, True))  # 20
-print("2-real:", one(inp, True))  # 916, but sometimes getting 985 for _reasons_
+print("2-real:", one(inp, True))  # 916
