@@ -15,7 +15,7 @@ def parse(inps):
 
 
 def sum(lines):
-    # pad out and convert to numbers
+    # pad out and convert to numbers and sum
     sums = [0] * 21
     for l in lines:
         l = str(l).zfill(21)
